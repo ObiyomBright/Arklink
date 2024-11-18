@@ -1,0 +1,280 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F7F7F7;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    height: 60px;
+}
+
+nav h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 26px;
+    color: rgb(23, 23, 112);
+    font-weight: 900;
+}
+
+.options {
+    display: flex;
+}
+
+.options li {
+    list-style: none;
+    margin-right: 15px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.options li a {
+    text-decoration: none;
+}
+
+.menu {
+    position: relative;
+    display: none;
+}
+
+.menu .bars {
+    background-color: rgb(23, 23, 112);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 19px;
+}
+
+ .menu .bars:hover {
+    background-color: rgba(23, 23, 112, 0.719);
+}
+
+.menu .bars:active {
+    color: rgb(23, 23, 112);
+    background-color: #F7F7F7;
+}
+
+.menu .menu-options {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 2px;
+    padding: 10px;
+    gap: 5px;
+    background-color: #ada6a6;
+    border-radius: 15px;
+    z-index: 999;
+}
+
+.menu .menu-options li {
+    list-style: none;
+    width: 150px;
+}
+
+.menu .menu-options li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: rgb(23, 23, 112);
+}
+
+/* Display Image */
+.displayImage {
+    height: 80vh;
+    border-top: 3px solid #D4AF37;
+    border-bottom: 3px solid #D4AF37;
+    background-image: url('images/display_image.webp');
+    background-position: center;
+    background-size: cover;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.mainTitle {
+    font-size: 60px;
+    font-weight: 800;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(255, 255, 255);
+    margin-top: 10px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.briefDescription {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    bottom: 30px;
+    padding: 0px 20px 0px 20px;
+    font-size: 25px;
+    font-weight: 700;
+    color: black;
+}
+
+.subtext {
+    list-style: none;
+}
+
+.text {
+    color: rgb(68, 62, 62);
+    font-size: 20px;
+
+}
+
+.categories { 
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.categories img {
+    display: block;
+    height: 200px;
+    width: 200px;
+    border-radius: 15px;
+}
+
+.categories a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 25px;
+    text-decoration: none;
+    text-align: center;
+    color: rgb(23, 23, 112);
+    font-weight: 800;
+}
+
+.products {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.item {
+    width: 200px;
+    height: 200px;
+}
+.itemImg{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.itemDetails {
+    padding-left: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.size {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.price {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.naira {
+    text-decoration-line: line-through;
+    text-decoration-style: double;
+    font-style: italic;
+}
+
+.addToCart {
+    border: none;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color:  rgb(23, 23, 112);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    max-width: 150px;
+}
+
+.quantityControl {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color:  rgb(23, 23, 112);
+    color: white;
+    display: none;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 150px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-top: 3px;
+}
+
+.quantityIncrease {
+    border: none;
+    background-color: rgb(23, 23, 112);
+    color: white;
+    font-size: 20px;
+    padding: 3px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.quantityDecrease {
+    border: none;
+    background-color: rgb(23, 23, 112);
+    color: white;
+    font-size: 20px;
+    padding: 3px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.quantityCount {
+    align-items: center;
+    margin-top: 3px;
+}
+
+.sqm {
+    font-style: italic;
+}
+/* Media Query  */
+@media screen and (max-width: 500px){
+
+    .options {
+        display: none;
+    }
+
+    .menu {
+        display: flex;
+    }
+
+    .mainTitle {
+        display: none;
+    }
+
+    .briefDescription {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .categories p{
+        width: 120px;
+    }
+    .categories img {
+        height: 100px;
+        width: 100px;
+        flex-wrap: wrap;
+    }
+
+    .categories a {
+        font-size: 18px;
+    }
+}

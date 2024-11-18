@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: url('images/sign_up_background_image.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    background-color: rgba(255, 255, 255, 0.836);
+    padding: 20px;
+    border-radius: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h1 {
+    font-size: 30px;
+    margin-bottom: 5px;
+    color: rgb(116, 85, 1);
+}
+
+a {
+    color: rgb(116, 85, 1);
+    text-decoration: none;font-style: italic;
+}
+
+a:hover {
+    color: rgb(212, 166, 37);
+}
+
+a:active {
+    color: rgb(85, 64, 5);
+}
+
+label {
+    font-size: 20px;
+    margin-right: 3px;
+}
+
+input {
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    color: white;
+    background-color: rgb(116, 85, 1);
+    border: none;
+    padding: 5px 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    color: rgb(116, 85, 1);
+    background-color: white;
+    border: 2px solid rgb(116, 85, 1);
+    font-weight: 700;
+}
+
+button:active {
+    color: white;
+    background-color: rgb(68, 51, 3);
+}
+
+.message {
+    color: rgb(116, 85, 1);
+}

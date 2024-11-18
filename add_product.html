@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="sign_up.css">
+</head>
+<body>
+    <form action="add_product.php" method="post" enctype="multipart/form-data">
+        <label for="produceId">Product Id:</label>
+        <input type="text" name="productId" placeholder="Product name/code" required><br>
+
+        <label for="company">Company:</label>
+        <input type="text" name="company" placeholder="Manufacturer's name" required><br>
+
+        <label for="Category">Category:</label>
+        <input type="text" name="category" placeholder="Tiles/marble/sanitary ware" required><br>
+
+        <label for="productImage">Product Image: <span class="message">(max-image size is 800kb, Only JPEG, PNG, or WebP is accepted)</span></label><br>
+        <input type="file" name="productImage" accept=".jpeg,.jpg,.png,.webp" required><br>
+
+        <label for="size">Size:</label>
+        <input type="text" name="size" placeholder="Enter product size"><br>
+
+        <label for="price">Price:</label>
+        <input type="text" name="price" placeholder="Enter price/sqm"><br>
+
+        <button type="submit">Add Product</button>
+    </form>
+</body>
+</html>
