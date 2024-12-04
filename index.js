@@ -6,50 +6,54 @@ let bars = document.getElementById('bars').addEventListener('click', () => {
     } else {
         menuOptions.style.display = 'none';
     }
-})
+});
 
-document.addEventListener('DOMContentLoaded', () => {
-    const products = document.querySelector('.products');
+//Function to create items container
+function createItemContainer(product) {
+    //Create a div container for the product container
+    const itemContainer = document.createElement('div');
+    itemContainer.className = 'item';
+    itemContainer.innerHTML = `<img src="${product.img}" class="itemImg">
+            <div class="itemDetails">
+                <p class="size">Producer: ${product.producer}</p>
+                <p class="size">Size: ${product.size}</p>
+                <p class="price">Price: <span class="naira">N</span> ${product.price}/sqm</p>
+                <button onclick="addToCart()" class="addToCart">Add to Cart</button>
+                <!-- Quantity Control container -->
+                <div class="quantityControl">
+                    <button class="quantityIncrease">+</button>
+                    <p>
+                        <span class="quantityCount" contenteditable="true">1</span>
+                        <span class="sqm">sqm</span>
+                    </p>
+                    <button class="quantityDecrease">-</button>
+                </div> 
+            </div>`;
 
-    function createItemElement(item) {
-        // Create Item  Container
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('item');
-
-        // Populate item data
-        itemDiv.innerHTML = `
-                <img src="${item.img}" class="itemImg">
-                <div class="itemDetails">
-                    <p class="size">Producer: ${item.producer}</p>
-                    <p class="size">Size: ${item.size}</p>
-                    <p class="price">Price: <span class="naira">N</span> ${item.price} /sqm</p>
-                    <button onclick="addToCart()" class="addToCart">Add to Cart</button>
-                    <div class="quantityControl">
-                        <button class="quantityIncrease">+</button>
-                        <p>
-                            <span class="quantityCount" contenteditable="true">1</span>
-                            <span class="sqm">sqm</span>
-                        </p>
-                        <button class="quantityDecrease">-</button>
-                    </div>
-                </div>`;
-                    products.appendChild(itemDiv);
-    }
-})
-
-async function loadItems() {
-    try {
-        const response = await fetch('index.php');
-        if(response.ok){
-            const items = await response.json();
-            items.forEach(createItemElement);
-        } else {
-            console.error('Failed to fetch items:');
-        }
-    } catch(error){
-        console.error(error);
-    }
-    
+    return itemContainer;
 }
 
-loadItems();
+//Function to render products
+async function renderProducts() {
+    //Declare the container where product would be appended
+    const productsContainer = document.querySelector('.products');
+
+    //Fetch products from the database
+    const products = await fetch('index.php');
+    if (!products.ok) {
+        console.error('Unabe to fetch products');
+    }
+
+    const productsResponse = await products.json();
+
+    productsResponse.forEach(product => {
+        const itemCard = createItemContainer(product);
+        productsContainer.appendChild(itemCard);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    //Call the render products function
+    renderProducts();
+})
