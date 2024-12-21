@@ -8,6 +8,13 @@ let bars = document.getElementById('bars').addEventListener('click', () => {
     }
 });
 
+//Function to add to cart
+// function addToCart(event){
+    
+// }
+
+let items = document.querySelectorAll
+
 //Function to create items container
 function createItemContainer(product) {
     //Create a div container for the product container
@@ -15,10 +22,10 @@ function createItemContainer(product) {
     itemContainer.className = 'item';
     itemContainer.innerHTML = `<img src="${product.img}" class="itemImg">
             <div class="itemDetails">
-                <p class="size">Producer: ${product.producer}</p>
+                <p class="size">${product.producer}</p>
                 <p class="size">Size: ${product.size}</p>
                 <p class="price">Price: <span class="naira">N</span> ${product.price}/sqm</p>
-                <button onclick="addToCart()" class="addToCart">Add to Cart</button>
+                <button onclick="addToCart(${JSON.stringify(product)})" class="addToCart">Add to Cart</button>
                 <!-- Quantity Control container -->
                 <div class="quantityControl">
                     <button class="quantityIncrease">+</button>
@@ -38,18 +45,24 @@ async function renderProducts() {
     //Declare the container where product would be appended
     const productsContainer = document.querySelector('.products');
 
-    //Fetch products from the database
-    const products = await fetch('index.php');
-    if (!products.ok) {
-        console.error('Unabe to fetch products');
+    try {
+        //Fetch products from the database
+        const products = await fetch('index.php');
+        if (!products.ok) {
+            console.error('Unabe to fetch products');
+        }
+
+        const productsResponse = await products.json();
+
+        //Render each product
+        productsResponse.forEach(product => {
+            const itemCard = createItemContainer(product);
+            productsContainer.appendChild(itemCard);
+        });
+    } catch (error) {
+        console.error('Error fetching products: ', error);
     }
 
-    const productsResponse = await products.json();
-
-    productsResponse.forEach(product => {
-        const itemCard = createItemContainer(product);
-        productsContainer.appendChild(itemCard);
-    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
