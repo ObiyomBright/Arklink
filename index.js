@@ -8,12 +8,12 @@ let bars = document.getElementById('bars').addEventListener('click', () => {
     }
 });
 
-//Function to add to cart
-// function addToCart(event){
-    
-// }
+let items = document.querySelectorAll('.item');
 
-let items = document.querySelectorAll
+//Function to add to cart
+function addToCart(product){
+    console.log(product);
+}
 
 //Function to create items container
 function createItemContainer(product) {
