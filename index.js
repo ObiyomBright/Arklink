@@ -10,11 +10,6 @@ let bars = document.getElementById('bars').addEventListener('click', () => {
 
 let items = document.querySelectorAll('.item');
 
-//Function to add to cart
-function addToCart(product){
-    console.log(product);
-}
-
 //Function to create items container
 function createItemContainer(product) {
     //Create a div container for the product container
@@ -25,7 +20,7 @@ function createItemContainer(product) {
                 <p class="size">${product.producer}</p>
                 <p class="size">Size: ${product.size}</p>
                 <p class="price">Price: <span class="naira">N</span> ${product.price}/sqm</p>
-                <button onclick="addToCart(${JSON.stringify(product)})" class="addToCart">Add to Cart</button>
+                <button class="addToCart">Add to Cart</button>
                 <!-- Quantity Control container -->
                 <div class="quantityControl">
                     <button class="quantityIncrease">+</button>
