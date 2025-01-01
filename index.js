@@ -10,7 +10,6 @@ let bars = document.getElementById('bars').addEventListener('click', () => {
 
 //Function to create items container
 function createItemContainer(product) {
-    //Create a div container for the product container
     const itemContainer = document.createElement('div');
     itemContainer.className = 'item';
     itemContainer.innerHTML = `<img src="${product.img}" class="itemImg">
@@ -29,7 +28,6 @@ function createItemContainer(product) {
                      <button class="quantityIncrease">+</button>
                 </div> 
             </div>`;
-
     return itemContainer;
 }
 
@@ -41,7 +39,7 @@ async function renderProducts() {
         //Fetch products from the database
         const response = await fetch('index.php');
         if (!response.ok) {
-            console.error('Unabe to fetch products');
+            console.error('Unable to fetch products');
         }
 
         const productsResponse = await response.json();
@@ -80,6 +78,15 @@ async function renderProducts() {
                 displayQuantityControl(quantityControl, addToCartButton, newQuantity);
             });
 
+            // Keep the quantity control visible while editing the quantityCount
+            quantityCount.addEventListener('focus', () => {
+                quantityControl.style.display = 'flex';
+            });
+
+            quantityCount.addEventListener('input', () => {
+                quantityControl.style.display = 'flex';
+            });
+
             productsContainer.appendChild(itemCard);
         });
     } catch (error) {
@@ -103,7 +110,7 @@ function displayQuantityControl(quantityControl, addToCartButton, count) {
 }
 
 //Function to add product to cart
-function addToCart(product) {
+function addToCart(product){
     const existingProduct = cart.find(item => item.id === product.id);
 
     if (existingProduct) {
@@ -114,7 +121,7 @@ function addToCart(product) {
     }
 
     updateLocalStorage();
-}
+};
 
 //Function to update the product quantity
 function updateProductQuantity(productId, delta) {
@@ -136,4 +143,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Call the render products function
     renderProducts();
-})
+});

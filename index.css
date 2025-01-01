@@ -266,13 +266,19 @@ nav h1 {
 
 .quantityCount {
     align-items: center;
-    margin-top: 3px;
+    margin: 3px;
     padding: 5px;
+    width: 50%;
+    border: 2px solid rgb(23, 23, 112);
+    border-radius: 5px;
 }
 
 .sqm {
     font-style: italic;
+    font-size: 12px;
+    margin-right: 3px;
 }
+
 /* Media Query  */
 @media screen and (max-width: 600px){
 
