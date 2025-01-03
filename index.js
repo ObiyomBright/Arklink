@@ -1,17 +1,17 @@
-let bars = document.getElementById('bars').addEventListener('click', () => {
-    let menuOptions = document.getElementById('menu-options');
+let bars = document.getElementById("bars").addEventListener("click", () => {
+    let menuOptions = document.getElementById("menu-options");
 
-    if (menuOptions.style.display == 'none') {
-        menuOptions.style.display = 'flex';
+    if (menuOptions.style.display == "none") {
+        menuOptions.style.display = "flex";
     } else {
-        menuOptions.style.display = 'none';
+        menuOptions.style.display = "none";
     }
 });
 
 //Function to create items container
 function createItemContainer(product) {
-    const itemContainer = document.createElement('div');
-    itemContainer.className = 'item';
+    const itemContainer = document.createElement("div");
+    itemContainer.className = "item";
     itemContainer.innerHTML = `<img src="${product.img}" class="itemImg">
             <div class="itemDetails">
                 <p class="size">${product.producer}</p>
@@ -33,85 +33,107 @@ function createItemContainer(product) {
 
 //Function to render products
 async function renderProducts() {
-    const productsContainer = document.querySelector('.products');
+    const productsContainer = document.querySelector(".products");
 
     try {
         //Fetch products from the database
-        const response = await fetch('index.php');
+        const response = await fetch("index.php");
         if (!response.ok) {
-            console.error('Unable to fetch products');
+            console.error("Unable to fetch products");
+            return;
         }
 
         const productsResponse = await response.json();
 
         //Render each product
-        productsResponse.forEach(product => {
+        productsResponse.forEach((product) => {
             const itemCard = createItemContainer(product);
 
             // Add functionality to Add to Cart button
-            const addToCartButton = itemCard.querySelector('.addToCart');
-            const quantityControl = itemCard.querySelector('.quantityControl');
-            const quantityCount = quantityControl.querySelector('.quantityCount');
-            const increaseButton = quantityControl.querySelector('.quantityIncrease');
-            const decreaseButton = quantityControl.querySelector('.quantityDecrease');
+            const addToCartButton = itemCard.querySelector(".addToCart");
+            const quantityControl = itemCard.querySelector(".quantityControl");
+            const quantityCount = quantityControl.querySelector(".quantityCount");
+            const increaseButton = quantityControl.querySelector(".quantityIncrease");
+            const decreaseButton = quantityControl.querySelector(".quantityDecrease");
 
-            addToCartButton.addEventListener('click', () => {
+            addToCartButton.addEventListener("click", () => {
                 addToCart(product);
-                quantityCount.textContent = cart.find(item => item.id === product.id).quantity;
+                quantityCount.textContent = cart.find(
+                    (item) => item.id === product.id
+                ).quantity;
                 displayQuantityControl(quantityControl, addToCartButton, 1);
             });
 
             // Add functionality to Increase button
-            increaseButton.addEventListener('click', () => {
+            increaseButton.addEventListener("click", () => {
                 updateProductQuantity(product.id, 1);
-                const updatedProduct = cart.find(item => item.id === product.id);
-                quantityCount.textContent = updatedProduct ? updatedProduct.quantity : 0;
-                displayQuantityControl(quantityControl, addToCartButton, updatedProduct.quantity);
+                const updatedProduct = cart.find((item) => item.id === product.id);
+                quantityCount.textContent = updatedProduct
+                    ? updatedProduct.quantity
+                    : 0;
+                displayQuantityControl(
+                    quantityControl,
+                    addToCartButton,
+                    updatedProduct.quantity
+                );
             });
 
             // Add functionality to Decrease button
-            decreaseButton.addEventListener('click', () => {
+            decreaseButton.addEventListener("click", () => {
                 updateProductQuantity(product.id, -1);
-                const updatedProduct = cart.find(item => item.id === product.id);
+                const updatedProduct = cart.find((item) => item.id === product.id);
                 const newQuantity = updatedProduct ? updatedProduct.quantity : 0;
                 quantityCount.textContent = newQuantity;
                 displayQuantityControl(quantityControl, addToCartButton, newQuantity);
             });
 
             // Keep the quantity control visible while editing the quantityCount
-            quantityCount.addEventListener('focus', () => {
-                quantityControl.style.display = 'flex';
+            quantityCount.addEventListener("focus", () => {
+                quantityControl.style.display = "flex";
             });
 
-            quantityCount.addEventListener('input', () => {
-                quantityControl.style.display = 'flex';
+            quantityCount.addEventListener("input", () => {
+                const newQuantity = parseInt(quantityCount.textContent, 10);
+                if (!isNaN(newQuantity) && newQuantity >= 0) {
+                    const cartProduct = cart.find((item) => item.id === product.id);
+            
+                    if (cartProduct) {
+                        cartProduct.quantity = newQuantity;
+            
+                        if (cartProduct.quantity <= 0) {
+                            cart = cart.filter((item) => item.id !== product.id); // Remove product if quantity is 0
+                        }
+            
+                        updateLocalStorage();
+                    }
+                    displayQuantityControl(quantityControl, addToCartButton, newQuantity);
+                }
             });
 
             productsContainer.appendChild(itemCard);
         });
     } catch (error) {
-        console.error('Error fetching products: ', error);
+        console.error("Error fetching products: ", error);
     }
-
 }
 
 //Initialize cart from local storage or as an empty array
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 //Function to update local storage
 function updateLocalStorage() {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 // Function to display the quantity control and hide the add to cart button
 function displayQuantityControl(quantityControl, addToCartButton, count) {
-    quantityControl.style.display = count > 0 ? 'flex' : 'none';
-    addToCartButton.style.display = count > 0 ? 'none' : 'inline-block';
+    quantityControl.style.display = count > 0 ? "flex" : "none";
+    addToCartButton.style.display = count > 0 ? "none" : "inline-block";
 }
 
 //Function to add product to cart
-function addToCart(product){
-    const existingProduct = cart.find(item => item.id === product.id);
+function addToCart(product) {
+    const existingProduct = cart.find((item) => item.id === product.id);
 
     if (existingProduct) {
         existingProduct.quantity += 1; //Increase quantity if product already exists
@@ -121,17 +143,17 @@ function addToCart(product){
     }
 
     updateLocalStorage();
-};
+}
 
 //Function to update the product quantity
-function updateProductQuantity(productId, delta) {
-    const product = cart.find(item => item.id === productId);
+function updateProductQuantity(productId, count) {
+    const product = cart.find((item) => item.id === productId);
 
     if (product) {
-        product.quantity += delta;
+        product.quantity += count;
 
         if (product.quantity <= 0) {
-            cart = cart.filter(item => item.id !== productId); // Remove product if quantity is 0
+            cart = cart.filter((item) => item.id !== productId); // Remove product if quantity is 0
         }
 
         updateLocalStorage();
@@ -139,8 +161,4 @@ function updateProductQuantity(productId, delta) {
 }
 
 //Render Products
-document.addEventListener('DOMContentLoaded', () => {
-
-    //Call the render products function
-    renderProducts();
-});
+document.addEventListener("DOMContentLoaded", renderProducts);
