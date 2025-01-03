@@ -8,6 +8,12 @@ let bars = document.getElementById("bars").addEventListener("click", () => {
     }
 });
 
+// Function to update the cart counter 
+function updateCartCounter() {
+    const cartCounter = document.querySelector(".cartCounter");
+    cartCounter.textContent = cart.length;
+}
+
 //Function to create items container
 function createItemContainer(product) {
     const itemContainer = document.createElement("div");
@@ -96,14 +102,14 @@ async function renderProducts() {
                 const newQuantity = parseInt(quantityCount.textContent, 10);
                 if (!isNaN(newQuantity) && newQuantity >= 0) {
                     const cartProduct = cart.find((item) => item.id === product.id);
-            
+
                     if (cartProduct) {
                         cartProduct.quantity = newQuantity;
-            
+
                         if (cartProduct.quantity <= 0) {
                             cart = cart.filter((item) => item.id !== product.id); // Remove product if quantity is 0
                         }
-            
+
                         updateLocalStorage();
                     }
                     displayQuantityControl(quantityControl, addToCartButton, newQuantity);
@@ -123,6 +129,7 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 //Function to update local storage
 function updateLocalStorage() {
     localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCounter();
 }
 
 // Function to display the quantity control and hide the add to cart button
