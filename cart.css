@@ -160,3 +160,17 @@ label {
     background-color: white;
     color: rgb(23, 23, 112);
 }
+
+
+.alertBox {
+    display: flex;
+    border: 2px solid rgb(116, 85, 1);
+    background-color: white;
+    position: relative;
+    top: 100px;
+    right: 10px;
+    max-width: 300px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 20px;
+}
