@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 // Enable CORS
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
@@ -26,20 +27,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $orderId = $conn->insert_id; // Get the last inserted order ID
 
         // Insert each cart item into order_items table
+        $allItemsInserted = true; // Flag to track if all items were inserted
         foreach ($cartDetails as $item) {
             $productId = mysqli_real_escape_string($conn, $item['id']);
             $quantity = mysqli_real_escape_string($conn, $item['quantity']);
             $price = mysqli_real_escape_string($conn, $item['price']);
 
-            $sql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES ('$orderId', '$productId', '$quantity', '$price')";
-            $conn->query($sql);
+            $itemSql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES ('$orderId', '$productId', '$quantity', '$price')";
+            if (!$conn->query($itemSql)) {
+                $allItemsInserted = false; // Set flag to false if insert fails
+            }
         }
-        echo json_encode(['status' => 'success', 'message' => 'Order successfully submitted']);
+
+        if ($allItemsInserted) {
+            echo json_encode(['status' => 'success', 'message' => 'Order successfully submitted', 'orderId' => $orderId]);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to insert some order items']);
+        }
     } else {
-        echo json_encode(['status' => 'error', 'message' => $sql . "<br>" . $conn -> error]);
-        // echo "Error: " . $sql . "<br>" . $conn->error;
+        echo json_encode(['status' => 'error', 'message' => 'Failed to insert order. Error: ' . $conn -> error]);
     }
 
     // Close the database connection
     $conn->close();
 }
+?>

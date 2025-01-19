@@ -24,7 +24,7 @@ function updateCartCounter() {
 
 //Function Cart Summary
 function cartSummary() {
-    let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0); 
+    let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     return total.toFixed(2); // Returns the total price with 2 decimal places
 }
 
@@ -107,14 +107,14 @@ async function handleOrder() {
     // Send data to the cart.php page
     try {
         const request = await fetch('cart.php', {
-            method: 'POST', 
+            method: 'POST',
             body: formData,
         });
 
         const response = await request.json();
         alertBox(response.message);
         console.log(response.message);
-        
+
         if (response.status == 'success') {
             // Clear the cart and update the cart counter if the order was successful
             localStorage.removeItem('cart');
@@ -124,18 +124,19 @@ async function handleOrder() {
 
             //Send Whatsapp Message
             const whatsappData = {
-                to: '2347089830948',
-                from: 'Arklink',
-                sms: 'An order was just placed on the site, kindly check your dashboard for more info', 
-                type: 'plain',
+                phone_number: '2347089830948',
+                device_id: 'a9302848-4f1d-47ef-96da-aa96da47e276',
+                template_id: '53bf703e-dd3d-4f71-88b2-7b86f4c1c28e',
                 api_key: 'TLIAYKlYbyZwMIPnfdUOgyswysOeyOislkXpBPOqAonILiiTaEDuDZEMYKbMQN',
-                channer: 'generic',
+                data: {
+                    orderId: response.orderId
+                }
             };
 
-            const whatsappRequest = await fetch('https://v3.api.termii.com', {
+            const whatsappRequest = await fetch('https://v3.api.termii.com/api/send/template', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(whatsappData),
             });
@@ -143,8 +144,8 @@ async function handleOrder() {
             const whatsappResponse = await whatsappRequest.json();
             console.log(whatsappResponse);
         }
-        
-    } catch(error){
+
+    } catch (error) {
         alertBox('Failed to submit order. Please try again.');
         console.error(error);
     }
