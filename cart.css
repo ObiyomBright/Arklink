@@ -173,4 +173,5 @@ label {
     padding: 10px 15px;
     border-radius: 15px;
     font-size: 20px;
+    z-index: 1;
 }
