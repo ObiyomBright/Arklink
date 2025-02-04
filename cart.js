@@ -97,57 +97,41 @@ async function handleOrder() {
     let userAddress = document.querySelector('.userAddress').value;
     let totalPrice = cartSummary(); // Get total price
 
-    // Create a form data object to send via POST request
-    let formData = new FormData();
-    formData.append('totalPrice', totalPrice);
-    formData.append('phoneNumber', userContact);
-    formData.append('address', userAddress);
-    formData.append('cartDetails', JSON.stringify(cart));
+    //Check if user contact and address are empty
+    if (userContact.length > 0 && userAddress.length > 0) {
 
-    // Send data to the cart.php page
-    try {
-        const request = await fetch('cart.php', {
-            method: 'POST',
-            body: formData,
-        });
+        // Create a form data object to send via POST request
+        let formData = new FormData();
+        formData.append('totalPrice', totalPrice);
+        formData.append('phoneNumber', userContact);
+        formData.append('address', userAddress);
+        formData.append('cartDetails', JSON.stringify(cart));
 
-        const response = await request.json();
-        alertBox(response.message);
-        console.log(response.message);
-
-        if (response.status == 'success') {
-            // Clear the cart and update the cart counter if the order was successful
-            localStorage.removeItem('cart');
-            cart = [];
-            updateCartCounter();
-            displayCartItems();
-
-            //Send Whatsapp Message
-            const whatsappData = {
-                phone_number: '2347089830948',
-                device_id: 'a9302848-4f1d-47ef-96da-aa96da47e276',
-                template_id: '53bf703e-dd3d-4f71-88b2-7b86f4c1c28e',
-                api_key: 'TLIAYKlYbyZwMIPnfdUOgyswysOeyOislkXpBPOqAonILiiTaEDuDZEMYKbMQN',
-                data: {
-                    orderId: response.orderId
-                }
-            };
-
-            const whatsappRequest = await fetch('https://v3.api.termii.com/api/send/template', {
+        // Send data to the cart.php page
+        try {
+            const request = await fetch('cart.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(whatsappData),
+                body: formData,
             });
 
-            const whatsappResponse = await whatsappRequest.json();
-            console.log(whatsappResponse);
+            const response = await request.json();
+            alertBox(response.message);
+            console.log(response.message);
+
+            if (response.status == 'success') {
+                // Clear the cart and update the cart counter if the order was successful
+                localStorage.removeItem('cart');
+                cart = [];
+                updateCartCounter();
+                displayCartItems();
+            }
+        } catch (error) {
+            alertBox('Failed to submit order. Please try again.');
+            console.error(error);
         }
 
-    } catch (error) {
-        alertBox('Failed to submit order. Please try again.');
-        console.error(error);
+    } else {
+        alertBox('Please provide your contact and address');
     }
 }
 

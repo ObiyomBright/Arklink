@@ -1,14 +1,4 @@
-<?php 
-
-// Enable CORS
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
-// Handle preflight (OPTIONS) request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    exit(0); // Exit to handle preflight only
-}
+<?php
 
 // Include database connection
 include 'database.php';
@@ -40,15 +30,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($allItemsInserted) {
-            echo json_encode(['status' => 'success', 'message' => 'Order successfully submitted', 'orderId' => $orderId]);
+            // echo json_encode(['status' => 'success', 'message' => 'Order successfully submitted', 'orderId' => $orderId]);
+
+            //Prepare the whatsapp Api payload
+            $curl = curl_init();
+            $data = array(
+                "api_key" => "TLIAYKlYbyZwMIPnfdUOgyswysOeyOislkXpBPOqAonILiiTaEDuDZEMYKbMQN",
+                "to" => "2347089830948",
+                "from" => "Termii_arklink",
+                "sms" => "A new order has been placed. Kindly check your dashboard for more info ",
+                "type" => "plain",
+                "channel" => "whatsapp"
+            );
+
+            $post_data = json_encode($data);
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://v3.api.termii.com/api/sms/send",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => $post_data,
+                CURLOPT_HTTPHEADER => array(
+                    "Content-Type: application/json"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            echo json_encode(['status' => 'success', 'message' => $response, 'orderId' => $orderId]);
+
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Failed to insert some order items']);
         }
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Failed to insert order. Error: ' . $conn -> error]);
+        echo json_encode(['status' => 'error', 'message' => 'Failed to insert order. Error: ' . $conn->error]);
     }
 
     // Close the database connection
     $conn->close();
 }
-?>
