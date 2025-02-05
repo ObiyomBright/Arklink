@@ -32,40 +32,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($allItemsInserted) {
             // echo json_encode(['status' => 'success', 'message' => 'Order successfully submitted', 'orderId' => $orderId]);
 
-            //Prepare the whatsapp Api payload
+            // Prepare the WhatsApp API payload
             $curl = curl_init();
+
             $data = array(
+                "phone_number" => "2349084760012",
+                "device_id" => "a9302848-4f1d-47ef-96da-aa96da47e276",
+                "template_id" => "53bf703e-dd3d-4f71-88b2-7b86f4c1c28e",
                 "api_key" => "TLIAYKlYbyZwMIPnfdUOgyswysOeyOislkXpBPOqAonILiiTaEDuDZEMYKbMQN",
-                "to" => "2347089830948",
-                "from" => "Termii_arklink",
-                "sms" => "A new order has been placed. Kindly check your dashboard for more info ",
-                "type" => "plain",
-                "channel" => "whatsapp"
+                "data" => array(
+                    "orderId" => $orderId,
+                )
             );
 
-            $post_data = json_encode($data);
-
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://v3.api.termii.com/api/sms/send",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => $post_data,
-                CURLOPT_HTTPHEADER => array(
-                    "Content-Type: application/json"
-                ),
-            ));
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => 'https://v3.api.termii.com/api/send/template',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => json_encode($data),
+                    CURLOPT_HTTPHEADER => array(
+                        'Content-Type: application/json'
+                    ),
+                )
+            );
 
             $response = curl_exec($curl);
 
+            // Check for any errors in the cURL request
+            if (curl_errno($curl)) {
+                $error_message = curl_error($curl);  // Capture cURL error message
+                echo json_encode(['status' => 'error', 'message' => $error_message]); // Return as JSON
+            } else {
+                // Successfully received a response, output it
+                echo json_encode(['status' => 'success', 'message' => 'Order successful. You\'ll be contacted shortly by one of our agents']); // Return the API response as JSON
+            }
             curl_close($curl);
 
-            echo json_encode(['status' => 'success', 'message' => $response, 'orderId' => $orderId]);
-
+            // echo json_encode(['status' => 'success', 'message' => $response, 'orderId' => $orderId]);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Failed to insert some order items']);
         }
