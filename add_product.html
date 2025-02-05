@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
     <link rel="stylesheet" href="sign_up.css">
 </head>
+
 <body>
     <form id="form" enctype="multipart/form-data">
         <label for="produceId">Product Id:</label>
@@ -14,21 +16,34 @@
         <label for="company">Company:</label>
         <input type="text" name="company" placeholder="Manufacturer's name" required><br>
 
-        <label for="Category">Category:</label>
-        <input type="text" name="category" placeholder="Tiles/marble/sanitary ware" required><br> 
-        
+        <!-- <label for="Category">Category:</label>
+        <input type="text" name="category" placeholder="Tiles/marble/sanitary ware" required><br> -->
 
-        <label for="productImage">Product Image: <span class="message">(max-image size is 800kb, Only JPEG, PNG, or WebP is accepted)</span></label><br>
+        <label for="category">Category:</label>
+        <select name="category" id="category" required>
+            <option value="" disabled selected>Select a category</option>
+            <option value="tiles">Tiles</option>
+            <option value="marble">Marble</option>
+            <option value="sanitary">Sanitary Ware</option>
+        </select>
+        <br>
+
+        <label for="productImage">Product Image: <span class="message">(max-image size is 800kb, Only JPEG, PNG, or WebP
+                is accepted)</span></label><br>
         <input type="file" name="productImage" id="productImage" accept=".jpeg,.jpg,.png,.webp" required><br>
 
-        <label for="size">Size:</label>
-        <input type="text" name="size" placeholder="Enter product size"><br>
+        <div id="sizeContainer">
+            <label for="size">Size:</label>
+            <input type="text" name="size" placeholder="Enter product size"><br>
+        </div>
+
 
         <label for="price">Price:</label>
-        <input type="text" name="price" placeholder="Enter price/sqm"><br>
+        <input type="text" name="price" id="price" placeholder="Enter price/sqm"><br>
 
         <button type="submit" id="submitBtn">Add Product</button>
     </form>
     <script src="add_product.js"></script>
 </body>
+
 </html>

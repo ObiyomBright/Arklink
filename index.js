@@ -10,8 +10,10 @@ let bars = document.getElementById("bars").addEventListener("click", () => {
 
 // Function to update the cart counter 
 function updateCartCounter() {
-    const cartCounter = document.querySelector(".cartCounter");
-    cartCounter.textContent = cart.length;
+    const cartCounter = document.querySelectorAll(".cartCounter");
+    cartCounter.forEach((counter) => {
+        counter.textContent = cart.length;
+    })
 }
 
 //Function to create items container

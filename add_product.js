@@ -1,3 +1,16 @@
+    document.getElementById("category").addEventListener("change", function () {
+        let sizeContainer = document.getElementById("sizeContainer");
+        let priceInput = document.getElementById("price");
+
+        if (this.value === "sanitary") {
+            sizeContainer.style.display = "none";  // Hides size input
+            priceInput.placeholder = "Enter price";  // Changes price placeholder
+        } else {
+            sizeContainer.style.display = "block";  // Shows size input
+            priceInput.placeholder = "Enter price/sqm";  // Restores placeholder
+        }
+    });
+
 document.getElementById('form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
