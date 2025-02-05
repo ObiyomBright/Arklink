@@ -166,7 +166,7 @@ label {
     display: flex;
     border: 2px solid rgb(116, 85, 1);
     background-color: white;
-    position: absolute;
+    position: fixed;
     top: 5px;
     right: 10px;
     max-width: 300px;
