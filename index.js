@@ -22,7 +22,7 @@ function createItemContainer(product) {
     itemContainer.className = "item";
     itemContainer.innerHTML = `<img src="${product.img}" class="itemImg">
             <div class="itemDetails">
-                <p class="size">${product.producer}</p>
+                <p class="size">Company: ${product.producer}</p>
                 <p class="size">Size: ${product.size}</p>
                 <p class="price">Price: <span class="naira">N</span> ${product.price}/sqm</p>
                 <button class="addToCart">Add to Cart</button>
