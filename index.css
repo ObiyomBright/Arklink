@@ -186,7 +186,7 @@ nav h1 {
 
 .item {
     width: 200px;
-    height: 350px;
+    /* height: 200px; */
     margin-bottom: 5px;
 }
 
@@ -296,6 +296,23 @@ nav h1 {
     font-style: italic;
     font-size: 12px;
     margin-right: 3px;
+}
+
+.message {
+    color: rgb(116, 85, 1);
+}
+
+.alertBox {
+    display: flex;
+    border: 2px solid rgb(116, 85, 1);
+    background-color: white;
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    max-width: 300px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 20px;
 }
 
 /* Media Query  */

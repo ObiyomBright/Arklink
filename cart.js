@@ -1,6 +1,7 @@
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let cartItems = document.querySelector('.cartItems');
 let cartTotal = document.querySelector('.cartTotal');
+let orderNow = document.querySelector('#orderNow');
 
 let bars = document.getElementById("bars").addEventListener("click", () => {
     let menuOptions = document.getElementById("menu-options");
@@ -23,8 +24,8 @@ function updateCartCounter() {
 
 //Function Cart Summary
 function cartSummary() {
-    let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0); 
-    return total.toFixed(2); // Returns the total price with 2 decimal places }
+    let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    return total.toFixed(2); // Returns the total price with 2 decimal places
 }
 
 // Function to create product container
@@ -81,6 +82,64 @@ function displayCartItems() {
 
     totalPrice.textContent = `₦ ${cartSummary()}`;
 }
+
+function alertBox(message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alertBox';
+    alertDiv.textContent = message;
+    document.body.prepend(alertDiv);
+    setTimeout(() => alertDiv.remove(), 5000);
+}
+
+// Function to handle order submission
+async function handleOrder() {
+    let userContact = document.querySelector('.userContact').value;
+    let userAddress = document.querySelector('.userAddress').value;
+    let totalPrice = cartSummary(); // Get total price
+
+    //Check if user contact and address are empty
+    if (userContact.length > 0 && userAddress.length > 0) {
+
+        // Create a form data object to send via POST request
+        let formData = new FormData();
+        formData.append('totalPrice', totalPrice);
+        formData.append('phoneNumber', userContact);
+        formData.append('address', userAddress);
+        formData.append('cartDetails', JSON.stringify(cart));
+
+        // Send data to the cart.php page
+        try {
+            const request = await fetch('cart.php', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const response = await request.json();
+            alertBox(response.message);
+            console.log(response.message);
+
+            if (response.status == 'success') {
+                // Clear the cart and update the cart counter if the order was successful
+                localStorage.removeItem('cart');
+                cart = [];
+                updateCartCounter();
+                displayCartItems();
+            }
+        } catch (error) {
+            alertBox('Failed to submit order. Please try again.');
+            console.error(error);
+        }
+
+    } else {
+        alertBox('Please provide your contact and address');
+    }
+}
+
+// Add event listener to orderNow button
+orderNow.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent the form from submitting the default way
+    handleOrder(); // Call the function to handle order submission
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     updateCartCounter();
