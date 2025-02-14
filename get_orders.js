@@ -47,6 +47,14 @@ function fetchOrders() {
         .catch(error => console.error("Error fetching orders:", error));
 }
 
+function alertBox(message) {
+    const alertDiv = document.createElement("div");
+    alertDiv.className = "alertBox";
+    alertDiv.textContent = message;
+    document.body.prepend(alertDiv);
+    setTimeout(() => alertDiv.remove(), 5000);
+}
+
 // Function to update order status
 function updateStatus(event) {
     const selectElement = event.target;

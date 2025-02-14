@@ -15,19 +15,28 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
     }
 } 
 
-//Query to get email and password
+//Query to get email and password and role
 $sql = "SELECT password FROM users WHERE email = '$email'";
 $result = mysqli_query($conn, $sql);
 
 if(mysqli_num_rows($result) > 0){
     $row = mysqli_fetch_assoc($result);
     $hashed_password = $row['password'];
+    $role = $row['role'];
 
     //Verify the password
     if(password_verify($password, $hashed_password)){
-        $_SESSION['username'] = $email;
-        $_SESSION['password'] = $hashed_password;
-        echo json_encode(['status' => 'success', 'message' => 'Login successful']);
+
+        //Check if user is an admin
+        if($role === 'admin'){
+            $_SESSION['username'] = $email;
+            $_SESSION['role'] = 'admin';
+            echo json_encode(['status' => 'success', 'message' => 'Login successful']);
+        } else {   // User is not an admin
+            $_SESSION['role'] = 'user';
+            echo json_encode(['status' => 'success', 'message' => 'Access denied: Admin only']);
+            exit;
+        }
     } else {
         //Password does not match
         echo json_encode(['status' => 'error', 'message' => 'Incorrect password']);

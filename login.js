@@ -13,7 +13,7 @@ form.addEventListener('submit', async (e) => {
         .then(response => response.json())
         .then(result => {
             if (result.status == 'success') {
-                window.location.href = 'home.html';
+                window.location.href = 'get_orders.html';
             } else {
                 alert(result.message);
             }

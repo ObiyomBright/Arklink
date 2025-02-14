@@ -13,7 +13,8 @@ body {
 nav {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    flex-direction: row;
+    padding: 15px;
     align-items: center;
     height: 60px;
     position: sticky;
@@ -24,11 +25,35 @@ nav {
     border-bottom: 2px solid #D4AF37;
 }
 
-nav h1 {
+h1 {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 26px;
     color: rgb(23, 23, 112);
     font-weight: 900;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    gap: 15px;
+    margin-right: 5px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-style: italic;
+    background-color: rgb(23, 23, 112);
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+.menu a:hover {
+    background-color: rgb(25, 25, 231);
 }
 
 /* Table Container */

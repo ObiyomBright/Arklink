@@ -1,6 +1,25 @@
 <?php
+session_start();
 include('database.php');
 header('Content-Type: application/json');
+
+//Function to check if the user is admin
+function isAdmin()
+{
+    return isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+} 
+
+// Restrict access to non-admin users
+function restrictAccess()
+{
+    if (!isAdmin()) {
+        echo json_encode(['message' => 'Error: Unauthorized access. Admin permission required.']);
+        exit();
+    }
+}
+
+isAdmin(); 
+restrictAccess();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productId = $_POST['productId'];

@@ -1,11 +1,30 @@
 <?php
-// Database connection
-include "database.php";
+session_start();
+include('database.php');
+header('Content-Type: application/json');
 
 // Check connection
 if ($conn->connect_error) {
     die(json_encode(array("error" => "Connection failed: " . $conn->connect_error)));
 }
+
+//Function to check if the user is admin
+function isAdmin()
+{
+    return isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+}
+
+// Restrict access to non-admin users
+function restrictAccess()
+{
+    if (!isAdmin()) {
+        echo json_encode(['message' => 'Error: Unauthorized access. Admin permission required.']);
+        exit();
+    }
+}
+
+isAdmin();
+restrictAccess();
 
 // Fetch orders
 $sql = "SELECT id, phone_number, address, total_price, status FROM orders ORDER BY id DESC";
@@ -58,4 +77,3 @@ if ($result->num_rows > 0) {
 echo json_encode($orders);
 
 $conn->close();
-?>

@@ -12,9 +12,59 @@ body {
     background-attachment: fixed;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
+
+/* Navigation Bar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 15px;
+    align-items: center;
+    height: 60px;
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+    width: 100%;
+    border-bottom: 2px solid #D4AF37;
+}
+
+nav h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 26px;
+    color: #c19b1f;
+    font-weight: 900;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    gap: 15px;
+    margin-right: 5px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-style: italic;
+    background-color: #D4AF37;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+.menu a:hover {
+    background-color: #866806;
+    color: white;
+}
+
 
 form {
     background-color: rgba(255, 255, 255, 0.836);
