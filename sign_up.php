@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $firstname = filter_var($data['firstname'], FILTER_SANITIZE_SPECIAL_CHARS);
         $lastname = filter_var($data['lastname'], FILTER_SANITIZE_SPECIAL_CHARS);
         $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-        $phonenumber = filter_var($data['phonenumber'], FILTER_SANITIZE_NUMBER_INT);
+        $phonenumber = filter_var($data['phonenumber'], FILTER_SANITIZE_SPECIAL_CHARS);
         $password = filter_var($data['password'], FILTER_SANITIZE_SPECIAL_CHARS);
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
     } else {
@@ -32,8 +32,10 @@ if (mysqli_num_rows($result) > 0) {
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
+        //Set session variables
         $_SESSION['username'] = $email;
-        $_SESSION['passworod'] = $password_hash;
+        $_SESSION['role'] = 'customer';
+
         echo json_encode(['status' => 'successful', 'message' => 'Registeration successful']);
     }
 }

@@ -31,7 +31,7 @@ form.addEventListener('submit', async (e) => {
             alertBox(result.message);
                 
             if (result.status === 'successful') {
-                window.location.href = 'get_orders.html';
+                window.location.href = 'index.html';
             }
         } catch (error) {
             alertBox(`Unexpected error: Try again`);
