@@ -5,6 +5,7 @@ include('database.php');
 if($_SERVER['REQUEST_METHOD']== 'POST'){
     $requestbody = file_get_contents('php://input'); //Recieves json from request
     $data = json_decode($requestbody, true); //Decodes json to php array
+
         if(json_last_error() === JSON_ERROR_NONE){
         // Sanitize form data
         $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
@@ -16,7 +17,7 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
 } 
 
 //Query to get email and password and role
-$sql = "SELECT password FROM users WHERE email = '$email'";
+$sql = "SELECT password, role FROM users WHERE email = '$email'";
 $result = mysqli_query($conn, $sql);
 
 if(mysqli_num_rows($result) > 0){
@@ -34,7 +35,7 @@ if(mysqli_num_rows($result) > 0){
             echo json_encode(['status' => 'success', 'message' => 'Login successful']);
         } else {   // User is not an admin
             $_SESSION['role'] = 'user';
-            echo json_encode(['status' => 'success', 'message' => 'Access denied: Admin only']);
+            echo json_encode(['status' => 'error', 'message' => 'Access denied: Admin only']);
             exit;
         }
     } else {

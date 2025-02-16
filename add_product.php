@@ -18,7 +18,7 @@ function restrictAccess()
     }
 }
 
-isAdmin(); 
+//Restrict access to non admin users
 restrictAccess();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

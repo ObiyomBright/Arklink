@@ -1,5 +1,16 @@
 const form = document.getElementById('form');
 
+function alertBox(message) {
+    const alertBox = document.createElement('div');
+    alertBox.className = 'alertBox';
+    alertBox.textContent = message;
+    document.body.appendChild(alertBox);
+
+    setTimeout(() => {
+        alertBox.remove();
+    }, 5000);
+}
+
 form.addEventListener('submit', async (e) => {
 
     e.preventDefault();
@@ -15,8 +26,11 @@ form.addEventListener('submit', async (e) => {
             if (result.status == 'success') {
                 window.location.href = 'get_orders.html';
             } else {
-                alert(result.message);
+                alertBox(result.message);
             }
         })
-    .catch(error => alert('Unexpected error:', error));
-})
+    .catch(error => {
+        alertBox('Unexpected error:', error);
+        console.error(error);
+}
+)})
