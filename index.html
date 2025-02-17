@@ -1,107 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lofloxy Ideal</title>
-    <!-- Links -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-    <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="footer.css" />
-  </head>
 
-  <body>
-    <!-- Navigation Bar -->
-    <nav>
-      <h1>Lofloxy Ideal (Arklink)</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lofloxy Ideal</title>
+  <!-- Links -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="footer.css" />
+</head>
 
-      <ul class="options">
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <h1>Lofloxy Ideal (Arklink)</h1>
+
+    <ul class="options">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="tiles.html">Tiles</a></li>
+      <li><a href="marbles.html">Marbles</a></li>
+      <li><a href="sanitary-wares.html">Sanitary wares</a></li>
+      <li class="loginLink"><a href="login.html">Staff Login</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <span class="cartCounter">0</span>
+    </ul>
+
+    <div class="menu">
+      <button id="bars"><i class="fa fa-bars bars"></i></button>
+      <ul class="menu-options" id="menu-options">
         <li><a href="index.html">Home</a></li>
         <li><a href="tiles.html">Tiles</a></li>
         <li><a href="marbles.html">Marbles</a></li>
         <li><a href="sanitary-wares.html">Sanitary wares</a></li>
         <li class="loginLink"><a href="login.html">Staff Login</a></li>
         <li><a href="cart.html">Cart</a></li>
-        <span class="cartCounter">0</span>
       </ul>
-
-      <div class="menu">
-        <button id="bars"><i class="fa fa-bars bars"></i></button>
-        <ul class="menu-options" id="menu-options">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="tiles.html">Tiles</a></li>
-          <li><a href="marbles.html">Marbles</a></li>
-          <li><a href="sanitary-wares.html">Sanitary wares</a></li>
-          <li class="loginLink"><a href="login.html">Staff Login</a></li>
-          <li><a href="cart.html">Cart</a></li>
-        </ul>
-        <span class="cartCounter">0</span>
-      </div>
-    </nav>
-
-    <!-- Display Image -->
-    <div class="displayImage">
-      <p class="mainTitle">
-        Luxurious <br />
-        Tile & Sanitary Ware <br />for Every Space
-      </p>
-
-      <ul class="briefDescription">
-        <li class="subtext">
-          Wide Selection <br />
-          <p class="text">
-            Discover a wide variety of designs to match every style
-          </p>
-        </li>
-        <li class="subtext">
-          Fast Delivery <br />
-          <p class="text">Count on us for quick and dependable service</p>
-        </li>
-        <li class="subtext">
-          Affordable Pricing <br />
-          <p class="text">Get premium products at affordable prices</p>
-        </li>
-      </ul>
+      <span class="cartCounter">0</span>
     </div>
+  </nav>
 
-    <!-- Categories -->
-    <div class="categories">
-      <p>
-        <a href="">
-          <img src="images/tiles.png" alt="Tiles" />
-          <span>Tiles</span>
-        </a>
-      </p>
-      <p>
-        <a href="">
-          <img src="images/marble.png" alt="Marble" />
-          <span>Marble</span>
-        </a>
-      </p>
-      <p>
-        <a href="">
-          <img src="images/sanitart_ware.png" alt="Sanitary Ware" />
-          <span>Sanitary Wares</span>
-        </a>
-      </p>
-    </div>
+  <!-- Display Image -->
+  <div class="displayImage">
+    <p class="mainTitle">
+      Luxurious <br />
+      Tile & Sanitary Ware <br />for Every Space
+    </p>
 
-    <!-- Products -->
-    <div class="products"></div>
+    <ul class="briefDescription">
+      <li class="subtext">
+        Wide Selection <br />
+        <p class="text">
+          Discover a wide variety of designs to match every style
+        </p>
+      </li>
+      <li class="subtext">
+        Fast Delivery <br />
+        <p class="text">Count on us for quick and dependable service</p>
+      </li>
+      <li class="subtext">
+        Affordable Pricing <br />
+        <p class="text">Get premium products at affordable prices</p>
+      </li>
+    </ul>
+  </div>
 
-    <!-- Footer -->
-    <footer>
-            <p>&copy; <span class="footerYear"></span> Lofloxy Ideal Ltd(Arklink) </p>
-                <p> All rights reserved</p>
-            <p>
-              <a href="/privacy-policy" style="margin-right: 15px;">Privacy Policy</a>
-              <a href="/terms-of-service" style="margin-right: 15px;">Terms of Service</a>
-              <a href="/contact-us">Contact Us</a>
-            </p>
-            
-    </footer>
+  <!-- Categories -->
+  <div class="categories">
+    <p>
+      <a href="">
+        <img src="images/tiles.png" alt="Tiles" />
+        <span>Tiles</span>
+      </a>
+    </p>
+    <p>
+      <a href="">
+        <img src="images/marble.png" alt="Marble" />
+        <span>Marble</span>
+      </a>
+    </p>
+    <p>
+      <a href="">
+        <img src="images/sanitart_ware.png" alt="Sanitary Ware" />
+        <span>Sanitary Wares</span>
+      </a>
+    </p>
+  </div>
 
-    <script src="index.js"></script>
-    <script src="footer.js"></script>
-  </body>
+  <!-- Products -->
+  <div class="products"></div>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="closeImageModal()">&times;</span>
+    <img class="modal-content" id="modalImg">
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <span class="footerYear"></span> Lofloxy Ideal Ltd(Arklink) </p>
+    <p> All rights reserved</p>
+    
+    <!-- <p>
+      <a href="/privacy-policy" style="margin-right: 15px;">Privacy Policy</a>
+      <a href="/terms-of-service" style="margin-right: 15px;">Terms of Service</a>
+      <a href="/contact-us">Contact Us</a>
+    </p> -->
+
+  </footer>
+
+  <script src="index.js"></script>
+  <script src="footer.js"></script>
+</body>
+
 </html>

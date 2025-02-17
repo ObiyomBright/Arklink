@@ -16,13 +16,27 @@ function updateCartCounter() {
     })
 }
 
+//Function to update Image Modal
+function openImageModal(imageSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = imageSrc;
+    modal.style.display = 'block';
+}
+
+//Function to close modal
+function closeImageModal(event){
+    document.getElementById('imageModal').style.display = 'none';
+}
+
 //Function to create items container
 function createItemContainer(product) {
     const itemContainer = document.createElement("div");
     itemContainer.className = "item";
-    itemContainer.innerHTML = `<img src="${product.img}" class="itemImg">
+    itemContainer.innerHTML = `
+    <img src="${product.img}" class="itemImg" onclick="openImageModal('${product.img}')">
             <div class="itemDetails">
-                <p class="size">${product.producer}</p>
+                <p class="size">Company: ${product.producer}</p>
                 <p class="size">Size: ${product.size}</p>
                 <p class="price">Price: <span class="naira">N</span> ${product.price}/sqm</p>
                 <button class="addToCart">Add to Cart</button>
