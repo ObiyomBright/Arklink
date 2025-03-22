@@ -24,7 +24,7 @@ function updateCartCounter() {
 
 //Function Cart Summary
 function cartSummary() {
-    let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    let total = cart.reduce((sum, item) => sum + Number(item.price * item.quantity).toLocaleString('en-US') , 0);
     return total.toFixed(2); // Returns the total price with 2 decimal places
 }
 
@@ -36,13 +36,13 @@ function createProductContainer(product) {
     productsContainer.innerHTML = `
     <img src="${product.img}" alt="image" class="productImage">
           <div class="productDetails">
-            <p class="productInfo">Name:&nbsp;${product.producer}</p>
-          <p class="productInfo">Size:&nbsp; ${product.size}</p>
-          <p class="productInfo">Quantity:&nbsp; ${product.quantity} sqm</p>
-          <p class="productInfo">Price: &nbsp;₦${product.price}</p>
+            <p class="productInfo">${product.size} ${product.producer} ${product.name}</p>
+          <p class="productInfo">${product.quantity} sqm</p>
+          <p class="productInfo">₦${Number(product.price).toLocaleString('en-US')}</p>
           </div>
           <div class="productButton">
-            <p class="productTotal">Total: &nbsp; <span class="total">₦${((product.quantity) * (product.price)).toFixed(2)}</span></p>
+            <p class="productTotal">Total: &nbsp; <span class="total">₦${Number(((product.quantity) * (product.price)).toFixed(2)).toLocaleString('en-US')
+                }</span></p>
             <button class="removeItem">x</button>
           </div>
     `;

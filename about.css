@@ -1,0 +1,146 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F7F7F7;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+nav h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 26px;
+    color: rgb(23, 23, 112);
+    font-weight: 900;
+}
+
+.options {
+    display: flex;
+}
+
+.options li {
+    list-style: none;
+    margin-right: 15px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.options li a {
+    text-decoration: none;
+    color: rgb(23, 23, 112);
+}
+
+.menu {
+    display: none;
+}
+
+/* About Page Banner */
+.about-banner {
+    height: 60vh;
+    background-image: url('images/about_banner.webp');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-top: 3px solid #D4AF37;
+    border-bottom: 3px solid #D4AF37;
+}
+
+.about-banner h2 {
+    font-size: 50px;
+    font-weight: 800;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+
+/* About Section */
+.about-content {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h2, 
+.about-content h3 {
+    color: rgb(23, 23, 112);
+    margin-bottom: 10px;
+}
+
+.about-content p {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.offer-list, .why-list {
+    list-style: none;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.offer-list li, .why-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.offer-list li:last-child, .why-list li:last-child {
+    border-bottom: none;
+}
+
+/* Footer */
+footer {
+    background-color: rgb(23, 23, 112);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .options {
+        display: none;
+    }
+
+    .menu {
+        display: block;
+    }
+
+    .about-banner {
+        height: 40vh;
+    }
+
+    .about-banner h2 {
+        font-size: 36px;
+    }
+
+    .about-content {
+        width: 95%;
+    }
+}
