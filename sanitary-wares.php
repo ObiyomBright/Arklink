@@ -4,7 +4,7 @@ include 'database.php';
 header('Content-Type: application/json');
 
 //SQL query to fetch product data
-$sql = "SELECT id, img, price, size, producer FROM products WHERE category = 'sanitary'";
+$sql = "SELECT  id, name, img, category, price, size, producer  FROM products WHERE category = 'sanitary'";
 $result = mysqli_query($conn, $sql);
 
     // Return error if the query fails

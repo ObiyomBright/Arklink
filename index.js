@@ -49,20 +49,21 @@ function createItemContainer(product) {
     const itemContainer = document.createElement("div");
     itemContainer.className = "item";
      const formattedPrice = Number(product.price).toLocaleString('en-US');
+     const priceUnit = product.category == 'sanitary' ? '' : '/sqm';
+     const quantityUnit = product.category == 'sanitary' ? 'pcs' : 'sqm';
 
     itemContainer.innerHTML = `
     <img src="${product.img}" class="itemImg" onclick="openImageModal('${product.img}')">
             <div class="itemDetails">
-                <p class="size">Company: ${product.producer}</p>
-                <p class="size">Size: ${product.size}</p>
-                <p class="price">Price: <span class="naira">N</span> ${formattedPrice}/sqm</p>
+                <p class="size">${product.size} ${product.producer} ${product.name}</p>
+                <p class="price"><span class="naira">N</span> ${formattedPrice}${priceUnit}</p>
                 <button class="addToCart">Add to Cart</button>
                 <!-- Quantity Control container -->
                 <div class="quantityControl">
                     <button class="quantityDecrease">-</button>  
                     <p>
                         <span class="quantityCount" contenteditable="true">1</span>
-                        <span class="sqm">sqm</span>
+                        <span class="sqm">${quantityUnit}</span>
                     </p>
                      <button class="quantityIncrease">+</button>
                 </div> 

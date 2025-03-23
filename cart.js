@@ -3,15 +3,43 @@ let cartItems = document.querySelector('.cartItems');
 let cartTotal = document.querySelector('.cartTotal');
 let orderNow = document.querySelector('#orderNow');
 
-let bars = document.getElementById("bars").addEventListener("click", () => {
-    let menuOptions = document.getElementById("menu-options");
+let bars = document.getElementById("bars");
+let menuOptions = document.getElementById("menu-options");
 
-    if (menuOptions.style.display == "none") {
+// Initially hide the menu
+menuOptions.style.display = "none";
+
+bars.addEventListener("click", (event) => {
+    // Toggle menu display
+    if (menuOptions.style.display === "none" || menuOptions.style.display === "") {
         menuOptions.style.display = "flex";
     } else {
         menuOptions.style.display = "none";
     }
+    
+    // Stop event from propagating to document
+    event.stopPropagation();
 });
+
+// Close menu when clicking outside
+document.addEventListener("click", (event) => {
+    if (menuOptions.style.display === "flex" && !bars.contains(event.target) && !menuOptions.contains(event.target)) {
+        menuOptions.style.display = "none";
+    }
+});
+
+//Function to update Image Modal
+function openImageModal(imageSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = imageSrc;
+    modal.style.display = 'block';
+}
+
+//Function to close modal
+function closeImageModal(event){
+    document.getElementById('imageModal').style.display = 'none';
+}
 
 // Function to update cart counter
 function updateCartCounter() {
@@ -24,8 +52,9 @@ function updateCartCounter() {
 
 //Function Cart Summary
 function cartSummary() {
-    let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    return total.toFixed(2); // Returns the total price with 2 decimal places
+    let total = cart.reduce((sum, item) => sum + (item.price * item.quantity) , 0);
+    
+    return Number(total).toLocaleString('en-US');
 }
 
 // Function to create product container
@@ -34,15 +63,14 @@ function createProductContainer(product) {
     productsContainer.classList = 'product';
     productsContainer.id = product.id;
     productsContainer.innerHTML = `
-    <img src="${product.img}" alt="image" class="productImage">
+    <img src="${product.img}" alt="image" class="productImage" onclick="openImageModal('${product.img}')">
           <div class="productDetails">
-            <p class="productInfo">Name:&nbsp;${product.producer}</p>
-          <p class="productInfo">Size:&nbsp; ${product.size}</p>
-          <p class="productInfo">Quantity:&nbsp; ${product.quantity} sqm</p>
-          <p class="productInfo">Price: &nbsp;₦${product.price}</p>
+            <p class="productInfo">${product.size} ${product.producer} ${product.name}</p>
+           <p class="productInfo">${product.quantity} sqm</p>
+           <p class="productInfo productPrice">₦${Number(product.price).toLocaleString('en-US')}</p>
           </div>
           <div class="productButton">
-            <p class="productTotal">Total: &nbsp; <span class="total">₦${((product.quantity) * (product.price)).toFixed(2)}</span></p>
+            <p class="productTotal">Total: &nbsp; <span class="total">₦${Number((product.quantity) * (product.price)).toLocaleString('en-US')}</span></p>
             <button class="removeItem">x</button>
           </div>
     `;

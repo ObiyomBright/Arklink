@@ -339,13 +339,17 @@ nav h1 {
     position: absolute;
     top: 15px;
     right: 30px;
-    color: white;
+    color: red;
     font-size: 40px;
+    font-weight: 800;
     cursor: pointer;
 }
 
 /* Media Query  */
 @media screen and (max-width: 600px) {
+    body{
+        width: 100%;
+    }
 
     .options {
         display: none;

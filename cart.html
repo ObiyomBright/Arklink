@@ -19,9 +19,9 @@
 
     <ul class="options">
       <li><a href="index.html">Home</a></li>
-      <li><a href="">Tiles</a></li>
-      <li><a href="">Marbles</a></li>
-      <li><a href="">Sanitary wares</a></li>
+      <li><a href="tiles.html">Tiles</a></li>
+      <li><a href="marbles.html">Marbles</a></li>
+      <li><a href="sanitary-wares.html">Sanitary wares</a></li>
       <li><a href="cart.html">Cart</a></li>
       <span class="cartCounter">0</span>
     </ul>
@@ -29,10 +29,10 @@
     <div class="menu">
       <button id="bars"><i class="fa fa-bars bars"></i></button>
       <ul class="menu-options" id="menu-options">
-        <li><a href="">Home</a></li>
-        <li><a href="">Tiles</a></li>
-        <li><a href="">Marbles</a></li>
-        <li><a href="">Sanitary wares</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tiles.html">Tiles</a></li>
+        <li><a href="marbles.html">Marbles</a></li>
+        <li><a href="sanitary-wares.html">Sanitary wares</a></li>
         <li><a href="cart.html">Cart</a></li>
       </ul>
       <span class="cartCounter">0</span>
@@ -41,6 +41,12 @@
 
   <!-- Cart Items -->
   <div class="cartItems"></div>
+
+   <!-- Image Modal -->
+   <div id="imageModal" class="modal">
+    <span class="close" onclick="closeImageModal()">&times;</span>
+    <img class="modal-content" id="modalImg">
+  </div>
 
   <div class="cartTotal">
     <h2>Cart Summary</h2>
@@ -67,11 +73,11 @@
   <footer>
     <p>&copy; <span class="footerYear"></span> Lofloxy Ideal Ltd(Arklink) </p>
     <p> All rights reserved</p>
-    <p>
+    <!-- <p>
       <a href="/privacy-policy" style="margin-right: 15px;">Privacy Policy</a>
       <a href="/terms-of-service" style="margin-right: 15px;">Terms of Service</a>
       <a href="/contact-us">Contact Us</a>
-    </p>
+    </p> -->
 
   </footer>
 

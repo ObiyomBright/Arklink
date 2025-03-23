@@ -1,9 +1,24 @@
-let bars = document.getElementById("bars").addEventListener("click", () => {
-    let menuOptions = document.getElementById("menu-options");
+let bars = document.getElementById("bars");
+let menuOptions = document.getElementById("menu-options");
 
-    if (menuOptions.style.display == "none") {
+// Initially hide the menu
+menuOptions.style.display = "none";
+
+bars.addEventListener("click", (event) => {
+    // Toggle menu display
+    if (menuOptions.style.display === "none" || menuOptions.style.display === "") {
         menuOptions.style.display = "flex";
     } else {
+        menuOptions.style.display = "none";
+    }
+    
+    // Stop event from propagating to document
+    event.stopPropagation();
+});
+
+// Close menu when clicking outside
+document.addEventListener("click", (event) => {
+    if (menuOptions.style.display === "flex" && !bars.contains(event.target) && !menuOptions.contains(event.target)) {
         menuOptions.style.display = "none";
     }
 });
@@ -33,19 +48,22 @@ function closeImageModal(event){
 function createItemContainer(product) {
     const itemContainer = document.createElement("div");
     itemContainer.className = "item";
+     const formattedPrice = Number(product.price).toLocaleString('en-US');
+     const priceUnit = product.category == 'sanitary' ? '' : '/sqm';
+     const quantityUnit = product.category == 'sanitary' ? 'pcs' : 'sqm';
+
     itemContainer.innerHTML = `
     <img src="${product.img}" class="itemImg" onclick="openImageModal('${product.img}')">
             <div class="itemDetails">
-                <p class="size">Company: ${product.producer}</p>
-                <p class="size">Size: ${product.size}</p>
-                <p class="price">Price: <span class="naira">N</span> ${product.price}/sqm</p>
+                <p class="size">${product.size} ${product.producer} ${product.name}</p>
+                <p class="price"><span class="naira">N</span> ${formattedPrice}${priceUnit}</p>
                 <button class="addToCart">Add to Cart</button>
                 <!-- Quantity Control container -->
                 <div class="quantityControl">
                     <button class="quantityDecrease">-</button>  
                     <p>
                         <span class="quantityCount" contenteditable="true">1</span>
-                        <span class="sqm">sqm</span>
+                        <span class="sqm">${quantityUnit}</span>
                     </p>
                      <button class="quantityIncrease">+</button>
                 </div> 
