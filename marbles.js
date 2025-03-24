@@ -78,12 +78,16 @@ async function renderProducts() {
     try {
         //Fetch products from the database
         const response = await fetch("marbles.php");
+        
         if (!response.ok) {
             console.error("Unable to fetch products");
             return;
         }
 
         const productsResponse = await response.json();
+        const loadingMessage = document.querySelector('.loadingMessage');
+        loadingMessage.style.display = 'none';
+
 
         //Render each product
         productsResponse.forEach((product) => {

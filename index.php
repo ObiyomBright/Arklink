@@ -41,3 +41,5 @@ echo json_encode($products);
 
 //Close connection
 mysqli_close($conn);
+
+?>

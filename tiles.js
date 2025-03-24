@@ -84,6 +84,9 @@ async function renderProducts() {
         }
 
         const productsResponse = await response.json();
+        const loadingMessage = document.querySelector('.loadingMessage');
+        loadingMessage.style.display = 'none';
+
 
         //Render each product
         productsResponse.forEach((product) => {
