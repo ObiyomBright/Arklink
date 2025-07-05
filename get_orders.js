@@ -24,7 +24,7 @@ function fetchOrders() {
                     <td>${order.phone_number}</td>
                     <td>${order.address}</td>
                     <td>${order.items}</td>
-                    <td>${order.total_price}</td>
+                    <td>&#8358;${Number(order.total_price).toLocaleString('en-US')}</td>
                     <td>${order.status}</td>
                     <td>
                         <select class="status-select" data-order-id="${order.order_id}">

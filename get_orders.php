@@ -10,6 +10,7 @@ if ($conn->connect_error) {
 
 //Function to check if the user is admin
 function isAdmin()
+
 {
     return isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 }

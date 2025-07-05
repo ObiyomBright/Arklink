@@ -11,7 +11,7 @@ bars.addEventListener("click", (event) => {
     } else {
         menuOptions.style.display = "none";
     }
-    
+
     // Stop event from propagating to document
     event.stopPropagation();
 });
@@ -40,7 +40,7 @@ function openImageModal(imageSrc) {
 }
 
 //Function to close modal
-function closeImageModal(event){
+function closeImageModal(event) {
     document.getElementById('imageModal').style.display = 'none';
 }
 
@@ -48,9 +48,9 @@ function closeImageModal(event){
 function createItemContainer(product) {
     const itemContainer = document.createElement("div");
     itemContainer.className = "item";
-     const formattedPrice = Number(product.price).toLocaleString('en-US');
-     const priceUnit = product.category == 'sanitary' ? '' : '/sqm';
-     const quantityUnit = product.category == 'sanitary' ? 'pcs' : 'sqm';
+    const formattedPrice = Number(product.price).toLocaleString('en-US');
+    const priceUnit = product.category == 'sanitary' ? '' : '/sqm';
+    const quantityUnit = product.category == 'sanitary' ? 'pcs' : 'sqm';
 
     itemContainer.innerHTML = `
     <img src="${product.img}" class="itemImg" onclick="openImageModal('${product.img}')">
@@ -71,19 +71,35 @@ function createItemContainer(product) {
     return itemContainer;
 }
 
+//Load by batches 
+let offset = 0;
+const limit = 15;
+let isFetching = false;
+let allProductsFetched = false;
+
 //Function to render products
 async function renderProducts() {
+    if (isFetching || allProductsFetched) return;
+    isFetching = true;
+
     const productsContainer = document.querySelector(".products");
 
     try {
         //Fetch products from the database
-        const response = await fetch("tiles.php");
+        const response = await fetch(`tiles.php?offset=${offset}&limit=${limit}`);
         if (!response.ok) {
             console.error("Unable to fetch products");
             return;
         }
 
         const productsResponse = await response.json();
+        if (productsResponse.length === 0) {
+            allProductsFetched = true;
+            const loadingMessage = document.querySelector('.loadingMessage');
+            loadingMessage.textContent = "All products loaded.";
+            return;
+        }
+
         const loadingMessage = document.querySelector('.loadingMessage');
         loadingMessage.style.display = 'none';
 
@@ -155,6 +171,9 @@ async function renderProducts() {
 
             productsContainer.appendChild(itemCard);
         });
+        offset += limit;       // Move to the next batch
+        isFetching = false;    // Allow the next batch to be fetched
+
     } catch (error) {
         console.error("Error fetching products: ", error);
     }

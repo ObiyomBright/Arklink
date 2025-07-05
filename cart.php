@@ -6,7 +6,9 @@ include 'database.php';
 // Check if the request method is POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize input
-    $totalPrice = mysqli_real_escape_string($conn, $_POST['totalPrice']);
+    // $totalPrice = mysqli_real_escape_string($conn, $_POST['totalPrice']);
+    $totalPrice = str_replace(',', '', $_POST['totalPrice']);
+    $totalPrice = mysqli_real_escape_string($conn, $totalPrice);
     $phoneNumber = mysqli_real_escape_string($conn, $_POST['phoneNumber']);
     $address = mysqli_real_escape_string($conn, $_POST['address']);
     $cartDetails = json_decode($_POST['cartDetails'], true);
@@ -36,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $curl = curl_init();
 
             $data = array(
-                "phone_number" => "2349084760012",
+                "phone_number" => "2347089830948",
                 "device_id" => "a9302848-4f1d-47ef-96da-aa96da47e276",
                 "template_id" => "53bf703e-dd3d-4f71-88b2-7b86f4c1c28e",
                 "api_key" => "TLIAYKlYbyZwMIPnfdUOgyswysOeyOislkXpBPOqAonILiiTaEDuDZEMYKbMQN",
@@ -71,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo json_encode(['status' => 'error', 'message' => $error_message]); // Return as JSON
             } else {
                 // Successfully received a response, output it
-                echo json_encode(['status' => 'success', 'message' => 'Order successful. You\'ll be contacted shortly by one of our agents']); // Return the API response as JSON
+                echo json_encode(['status' => 'success', 'message' => 'Order successful. You\'ll be contacted shortly by one of our agents','http_code' => $http_code, 'termii_response' => json_decode($response, true)]); // Return the API response as JSON
             }
             curl_close($curl);
 

@@ -34,7 +34,7 @@ if(mysqli_num_rows($result) > 0){
             $_SESSION['role'] = 'admin';
             echo json_encode(['status' => 'success', 'message' => 'Login successful']);
         } else {   // User is not an admin
-            $_SESSION['role'] = 'user';
+            $_SESSION['role'] = 'customer';
             echo json_encode(['status' => 'error', 'message' => 'Access denied: Admin only']);
             exit;
         }

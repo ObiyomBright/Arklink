@@ -60,6 +60,7 @@ nav h1 {
 .menu {
     position: relative;
     display: none;
+    /* border: none; */
 }
 
 .menu .bars {
@@ -69,15 +70,20 @@ nav h1 {
     padding: 10px;
     border-radius: 10px;
     font-size: 19px;
+    border: none;
 }
 
 .menu .bars:hover {
     background-color: rgba(23, 23, 112, 0.719);
+    cursor: pointer;
 }
 
 .menu .bars:active {
     color: rgb(23, 23, 112);
     background-color: #F7F7F7;
+}
+#bars {
+    border: none;
 }
 
 .menu .menu-options {
@@ -112,7 +118,7 @@ nav h1 {
     height: 80vh;
     border-top: 3px solid #D4AF37;
     border-bottom: 3px solid #D4AF37;
-    background-image: url('images/display_image.webp');
+    background: linear-gradient(to bottom, rgba(128, 128, 128, 0.3), rgba(128, 128, 128, 0.3), rgba(0, 0, 0, 0.3)), url('images/display_image.webp');
     background-position: center;
     background-size: cover;
     background-attachment: scroll;
@@ -140,7 +146,7 @@ nav h1 {
     padding: 0px 20px 0px 20px;
     font-size: 25px;
     font-weight: 700;
-    color: black;
+    color: white;
 }
 
 .subtext {
@@ -148,9 +154,8 @@ nav h1 {
 }
 
 .text {
-    color: rgb(68, 62, 62);
     font-size: 20px;
-
+    font-style: italic;
 }
 
 .categories {
@@ -363,6 +368,7 @@ nav h1 {
     width: 40px;
     height: 40px;
     animation: spin 2s linear infinite;
+    justify-self: center;
 }
 
 @keyframes spin {
@@ -383,6 +389,18 @@ nav h1 {
 
     .menu {
         display: flex;
+    }
+
+    .displayImage {
+        height: 70vh;
+    }
+
+    .subtext {
+        font-size: 18px;
+    }
+
+    .text {
+        font-size: 15px;
     }
 
     .cartCounter {
